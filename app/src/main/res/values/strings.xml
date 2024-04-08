@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Badminton Footwork Application</string>
+    <string-array name="courts">
+        <item>badminton_court_bottom_left</item>
+        <item>badminton_court_bottom_right</item>
+        <item>badminton_court_center_left</item>
+        <item>badminton_court_center_right</item>
+        <item>badminton_court_top_left</item>
+        <item>badminton_court_top_right</item>
+    </string-array>
 </resources>
