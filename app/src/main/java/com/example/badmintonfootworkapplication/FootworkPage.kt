@@ -6,10 +6,12 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -81,21 +83,28 @@ fun ScoreCard(size: Int, courtIndex: MutableIntState) {
     val isRunning = remember { mutableStateOf(false) }
     val coroutineScope = rememberCoroutineScope()
 
-    Row {
-        TextField(value = value.value, onValueChange = {
+    Row (
+        modifier = Modifier
+            .fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceAround
+    ) {
+        TextField(modifier = Modifier.size(width = 150.dp, height = 50.dp), value = value.value, onValueChange = {
             value.value = it
             if (it.toLongOrNull() != null) {
                 timerDuration.longValue = (it.toLong() * 1000) / 2
             }
         })
-        Button(onClick = {
-            isRunning.value = true
-            coroutineScope.launch {
-                while (isRunning.value && timerDuration.longValue > 0) {
-                    courtIndex.intValue = 0
-                    delay(timerDuration.longValue)
-                    courtIndex.intValue = Random.nextInt(1, size)
-                    delay(timerDuration.longValue)
+        Button(
+            modifier = Modifier
+                .size(width = 150.dp, height = 50.dp),
+            onClick = {
+                isRunning.value = true
+                coroutineScope.launch {
+                    while (isRunning.value && timerDuration.longValue > 0) {
+                        courtIndex.intValue = 0
+                        delay(timerDuration.longValue)
+                        courtIndex.intValue = Random.nextInt(1, size)
+                        delay(timerDuration.longValue)
                 }
             }
         }
@@ -103,7 +112,10 @@ fun ScoreCard(size: Int, courtIndex: MutableIntState) {
             Text(text = "Timer Start")
         }
     }
-    Button(onClick =
+    Button(
+        modifier = Modifier
+            .size(width = 150.dp, height = 50.dp),
+        onClick =
     {
         isRunning.value = false
         courtIndex.intValue = 0
